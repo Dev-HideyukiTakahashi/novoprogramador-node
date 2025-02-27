@@ -20,7 +20,13 @@ router.post("/painel/pijama", (req: Request, res: Response) => {
 router.put("/painel/pijama", (req: Request, res: Response) => {
   const { nome, tamanho, cor, preco, quantidade_estoque } = req.body;
   const { id } = req.params;
-  res.json({ message: 'ID: ' + id + ' Atualizou o pijama: ' + nome + ' tamanho: ' + tamanho + ' cor: ' + cor + ' preco: ' + preco + ' quantidade_estoque: ' + quantidade_estoque });
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    res.status(401);
+    res.json({ message: 'Token não informado' });
+  }
+  res.json({ message: 'ID: ' + id + ' Atualizou o pijama: ' + nome + ' tamanho: ' + tamanho + ' cor: ' + cor + ' preco: ' + preco + ' quantidade_estoque: ' + quantidade_estoque + " Token: " + authorization });
 });
 
 
