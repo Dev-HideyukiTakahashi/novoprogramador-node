@@ -1,41 +1,16 @@
-import { Request, Response, Router } from "express";
+import { Router, Request, Response } from "express";
+import AlunoController from "./controllers/AlunoController";
 
 const router = Router();
 
-//http://localhost:3000/criancas/1?tamanho=P&cor=azul
-router.get("/criancas/:id", (req: Request, res: Response) => {
-  const id = req.params.id;
-  const { tamanho, cor } = req.query;
-  res.json({ message: 'Selecionou o pijama: ' + id + ' tamanho: ' + tamanho + ' cor: ' + cor });
-})
+const alunoController = new AlunoController();
 
-//http://localhost:3000/painel/pijama
-router.post("/painel/pijama", (req: Request, res: Response) => {
-  const { nome, tamanho, cor, preco, quantidade_estoque } = req.body;
-
-  res.json({ message: 'Cadastrou o pijama: ' + nome + ' tamanho: ' + tamanho + ' cor: ' + cor + ' preco: ' + preco + ' quantidade_estoque: ' + quantidade_estoque });
-});
-
-//http://localhost:3000/painel/pijama/:id
-router.put("/painel/pijama", (req: Request, res: Response) => {
-  const { nome, tamanho, cor, preco, quantidade_estoque } = req.body;
-  const { id } = req.params;
-  const { authorization } = req.headers;
-
-  if (!authorization) {
-    res.status(401);
-    res.json({ message: 'Token não informado' });
-  }
-  res.json({ message: 'ID: ' + id + ' Atualizou o pijama: ' + nome + ' tamanho: ' + tamanho + ' cor: ' + cor + ' preco: ' + preco + ' quantidade_estoque: ' + quantidade_estoque + " Token: " + authorization });
-});
-
-
-//http://localhost:3000/painel/pijama/1
-router.delete("/painel/:id", (req: Request, res: Response) => {
-  const { id } = req.body;
-  res.json({ message: 'Deletou o pijama: ' + id });
-})
-
+router.get("/");  // root
+router.get("/alunos", alunoController.getAll); // buscar todos os alunos
+router.get("/alunos/:id", alunoController.getById); // buscar um aluno pelo id
+router.post("/alunos", alunoController.add); // adicionar um aluno
+router.put("/alunos/:id", alunoController.update); // editar um aluno
+router.delete("/alunos/:id", alunoController.delete); // deleta um aluno
 
 
 export default router;
