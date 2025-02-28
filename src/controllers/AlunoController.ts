@@ -22,6 +22,7 @@ class AlunoController {
 
   add(req: Request, res: Response) {
     const result = alunoService.add(req.body);
+    res.json(result);
   }
 
   update(req: Request, res: Response) {
