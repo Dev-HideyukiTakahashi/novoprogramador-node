@@ -1,10 +1,10 @@
-import { Router, Request, Response, NextFunction } from "express";
-import AlunoController from "./controllers/AlunoController";
+import { NextFunction, Router, Request, Response } from 'express';
+import TaskController from './controllers/TaskController';
 
 const router = Router();
+const taskController = new TaskController();
 
-const alunoController = new AlunoController();
-
+// Middleware de autenticação
 const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   if (req.headers.authorization) {
     // validar o token
@@ -14,12 +14,11 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
-router.get("/");  // root
-router.get("/alunos", alunoController.getAll); // buscar todos os alunos
-router.get("/alunos/:id", authMiddleware, alunoController.getById); // buscar um aluno pelo id
-router.post("/alunos", alunoController.add); // adicionar um aluno
-router.put("/alunos/:id", alunoController.update); // editar um aluno
-router.delete("/alunos/:id", alunoController.delete); // deleta um aluno
 
+router.get('/task', taskController.getAll);
+router.get('/task/:id_task', authMiddleware, taskController.get); // aplicando middleware antes de chamar o método get
+router.post('/task', taskController.insert);
+router.put('/task/:id_task', taskController.update);
+router.delete('/task/:id_task', taskController.delete);
 
 export default router;
