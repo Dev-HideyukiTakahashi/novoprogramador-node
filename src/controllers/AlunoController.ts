@@ -14,10 +14,12 @@ class AlunoController {
 
     //Chamar o service
     const result = alunoService.getAll();
+    res.json(result);
   }
 
   getById(req: Request, res: Response) {
     const result = alunoService.getById(req.params.id);
+    res.json(result);
   }
 
   add(req: Request, res: Response) {
@@ -27,10 +29,12 @@ class AlunoController {
 
   update(req: Request, res: Response) {
     const result = alunoService.update(req.params.id, req.body);
+    res.json(result);
   }
 
   delete(req: Request, res: Response) {
     const result = alunoService.delete(req.params.id);
+    res.json(result);
   }
 
 }

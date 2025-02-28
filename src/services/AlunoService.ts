@@ -1,5 +1,7 @@
 import { IAluno } from "../models/Aluno";
+import AlunoRepository from "../repositories/AlunoRepository";
 
+const alunoRepository = new AlunoRepository();
 
 
 class AlunoService {
@@ -9,23 +11,23 @@ class AlunoService {
   }
 
   getAll(): IAluno[] {
-    return [{ nome: "teste", email: "teste", telefone: "teste", senha: "teste", cpf: "teste" }];
+    return alunoRepository.getAll();
   }
 
   getById(id: string): IAluno {
-    return { nome: "teste", email: "teste", telefone: "teste", senha: "teste", cpf: "teste" };
+    return alunoRepository.getById(id);
   }
 
   add(data: IAluno): IAluno {
-    return data;
+    return alunoRepository.add(data);
   }
 
-  update(id: string, data: any): IAluno {
-    return { nome: "teste", email: "teste", telefone: "teste", senha: "teste", cpf: "teste" };
+  update(id: string, data: IAluno): IAluno {
+    return alunoRepository.update(id, data)
   }
 
-  delete(id: string): IAluno {
-    return { nome: "teste", email: "teste", telefone: "teste", senha: "teste", cpf: "teste" };
+  delete(id: string): string {
+    return alunoRepository.delete(id);
   }
 
 
