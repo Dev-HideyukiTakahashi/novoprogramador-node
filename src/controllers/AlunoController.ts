@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import AlunoService from '../services/AlunoService';
+import { v4 as uuidv4 } from 'uuid';
 
 const alunoService = new AlunoService();
 
@@ -23,6 +24,9 @@ class AlunoController {
   }
 
   add(req: Request, res: Response) {
+
+    const id = uuidv4();
+    req.body.id = id;
     const result = alunoService.add(req.body);
     res.json(result);
   }
